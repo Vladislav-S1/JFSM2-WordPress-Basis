@@ -1,7 +1,16 @@
 
 # BEGIN WordPress
-# Директивы (строки) между `BEGIN WordPress` и `END WordPress`
-# созданы автоматически и подлежат изменению только через фильтры WordPress.
-# Сделанные вручную изменения между этими маркерами будут перезаписаны.
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /JFSM2-WordPress-Basis/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /JFSM2-WordPress-Basis/index.php [L]
+</IfModule>
 
 # END WordPress

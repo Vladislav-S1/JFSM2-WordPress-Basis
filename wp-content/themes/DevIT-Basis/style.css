@@ -13,3 +13,23 @@ Text Domain: DevIT-Basis
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 */
+html {
+    height: 100%;
+    width: 100%;
+}
+#header, #footer{
+    background-color: #A9DFF2;
+}
+#header {
+    height: 100px;
+}
+#content {
+    height: 1200px;
+}
+#content::after{
+    content: url(icons/png/GrassForTheme.png);
+    position: relative;
+}
+#footer-base {
+    height: 400px;
+}

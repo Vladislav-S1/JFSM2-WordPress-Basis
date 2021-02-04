@@ -1,7 +1,8 @@
 <?php 
-get_header( 'homepage' ); 
+get_header(); 
+var_dump('sfhkshfuis');
 ?>
-	<div class="the-main-front-page  container-fluid" id="first-content-block" style="padding: 0px; background-color: #0c1330; ">
+	<div class="the-main-front-page  container-fluid" id="first-content-block">
 		<!-- Start the Loop. -->
 		<?php if ( have_posts() ) :the_post(); ?>
 			<div class="post">
