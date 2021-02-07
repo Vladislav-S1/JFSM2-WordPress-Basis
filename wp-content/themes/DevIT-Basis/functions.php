@@ -183,14 +183,6 @@ add_meta_box(
 'normal',                  // $context
 'high'                     // $priority
 );
-add_meta_box(
-'pages_meta_box_1',       // $id
-'Header Block',                  // $title
-'jfsm2_show_pages_meta_box',  // $callback
-'page',                 // $page
-'normal',                  // $context
-'high'                     // $priority
-);
 }
 
 
@@ -217,24 +209,7 @@ wp_nonce_field( basename( __FILE__ ), 'jfsm2_our_nonce' );
 <?php
 }
 
-function jfsm2_show_pages_meta_box() {
-global $post;
 
-$header_block = get_post_meta(  $post->ID, 'jfsm2_header_block', true );
-
-// Use nonce for verification to secure data sending
-wp_nonce_field( basename( __FILE__ ), 'jfsm2_our_nonce' );
-
-?>
-
-<!-- my custom value input -->
-<p>
-<label for="header-block"><?php echo esc_html__( 'Content', 'jfsm2' ); ?>:</label>
-<textarea class="form-control" id="header-block" name="jfsm2_header_block" rows="3"><?php echo isset( $header_block ) ? esc_attr( $header_block ) : ''; ?></textarea>
-</p>
-
-<?php
-}
 
 function jfsm2_save_meta_fields( $post_id ) {
 
@@ -281,57 +256,92 @@ update_post_meta( $post_id, 'jfsm2_contact_info', $contact_info );
 }
 
 function jfsm2_register_widgets() {
-register_sidebar( array(
-'name'          => __( 'Header Sidebar', 'jfsm2' ),
-'id'            => 'header-sidebar',
-'description'   => __( 'Widgets for front-page header.', 'jfsm2' ),
-'before_widget' => '<div id="%1$s" class="widget %2$s">',
-'after_widget'  => '</div>',
-'before_title'  => '<h2 class="widgettitle">',
-'after_title'   => '</h2>',
-) );
-register_sidebar( array(
-'name'          => __( 'Footer Sidebar', 'jfsm2' ),
-'id'            => 'footer-sidebar',
-'description'   => __( 'Widgets for all pages on footer', 'jfsm2' ),
-'before_widget' => '<div id="%1$s" class="widget %2$s">',
-'after_widget'  => '</div>',
-'before_title'  => '<h2 class="widgettitle">',
-'after_title'   => '</h2>',
-) );
-register_widget( 'jfsm2_Contact_Widget' );
+    register_sidebar( array(
+        'name'          => __( 'Footer Sidebar', 'jfsm2' ),
+        'id'            => 'footer-sidebar',
+        'description'   => __( 'Widgets for all pages on footer', 'jfsm2' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widgettitle">',
+        'after_title'   => '</h2>',
+    ) );
+    register_sidebar( array(
+        'name'          => __( 'Footer Sidebar2', 'jfsm2' ),
+        'id'            => 'footer-sidebar2',
+        'description'   => __( 'Widgets for all pages on footer', 'jfsm2' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widgettitle">',
+        'after_title'   => '</h2>',
+    ) );
+    register_widget( 'jfsm2_SocialLinks_Widget' );
 
-register_sidebar( array(
-'name'          => __( 'Footer Sidebar2', 'jfsm2' ),
-'id'            => 'footer-sidebar2',
-'description'   => __( 'Widgets for all pages on footer', 'jfsm2' ),
-'before_widget' => '<div id="%1$s" class="widget %2$s">',
-'after_widget'  => '</div>',
-'before_title'  => '<h2 class="widgettitle">',
-'after_title'   => '</h2>',
-) );
-register_widget( 'jfsm2_SocialLinks_Widget' );
+    register_sidebar( array(
+        'name'          => __( 'Footer Sidebar3', 'jfsm2' ),
+        'id'            => 'footer-sidebar3',
+        'description'   => __( 'Widgets for all pages on footer', 'jfsm2' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widgettitle">',
+        'after_title'   => '</h2>',
+    ) );
 }
 function jfsm2_enqueue_style() {
-wp_enqueue_style( 'jfsm2_bootstrap_style',  get_template_directory_uri() . '/css/bootstrap.css', array(), '0.1.0', 'all');
-wp_enqueue_style( 'fancybox_style',  get_template_directory_uri() . '/css/jquery.fancybox.min.css', array(), '0.1.0', 'all');
-wp_enqueue_script( 'bootstrap_script', get_template_directory_uri() . '/js/bootstrap.js', array( 'jquery' ) , '1.0', true );
-wp_enqueue_script( 'bootbox_script', get_template_directory_uri() . '/js/bootbox/bootbox.js', array( 'jquery' ) , '1.0', true );wp_enqueue_script( 'bootstrap_script', get_template_directory_uri() . '/js/jquery-3.5.1.js', array( 'jquery' ) , '1.0', true );
-wp_enqueue_script( 'jfsm2_script', get_template_directory_uri() . '/js/script.js', array( 'jquery' ) , '1.0', true );
-wp_enqueue_script( 'fancybox_script', get_template_directory_uri() . '/js/jquery.fancybox.min.js', array( 'jquery' ) , '1.0', true );
-wp_enqueue_style( 'jfsm2_style', get_template_directory_uri() . '/style.css', array(), '0.1.0', 'all' );
+    wp_enqueue_style( 'jfsm2_bootstrap_style',  get_template_directory_uri() . '/css/bootstrap.css', array(), '0.1.0', 'all');
+    wp_enqueue_script( 'bootstrap_script', get_template_directory_uri() . '/js/bootstrap.js', array( 'jquery' ) , '1.0', true );
+    wp_enqueue_script( 'bootbox_script', get_template_directory_uri() . '/js/bootbox/bootbox.js', array( 'jquery' ) , '1.0', true );wp_enqueue_script( 'bootstrap_script', get_template_directory_uri() . '/js/jquery-3.5.1.js', array( 'jquery' ) , '1.0', true );
+    wp_enqueue_script( 'jfsm2_script', get_template_directory_uri() . '/js/script.js', array( 'jquery' ) , '1.0', true );
+    wp_enqueue_script( 'fancybox_script', get_template_directory_uri() . '/js/jquery.fancybox.min.js', array( 'jquery' ) , '1.0', true );
+    wp_enqueue_style( 'jfsm2_style', get_template_directory_uri() . '/style.css', array(), '0.1.0', 'all' );
+}
+
+function devit_contact_form_shortcode() {
+    $content = '<section class="form-section-main">
+        <div id="form-wrapper">
+            <form method="post" id="form" enctype="multipart/form-data">
+            <label for="name">ФИО
+            <input title="Full name" type="text" name="name" pattern="[A-Za-z]{3,32}\s[A-Za-z]{3,32}\s[A-Za-z]{3,32}" id="name" />
+            </label>
+            <label for="email">E-mail
+            <input title="Email" type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="mail" />
+            </label>
+            <label for="phone">Телефон
+            <div class="phone-wrapper">
+            <div class="phone-input-add">
+            <input title="Phone number" type="tel" name="phone_0" id="phone" />
+            <input id="add-phone-field" class="btn" type="submit" value="+" name="add_phone_field"/>
+            </div>
+            </div>
+            </label>
+            <label for="age">Возраст
+            <input title="Age" type="number" min="1" max="100" name="age" id="age" />
+            </label>
+            <label for="photo">Фотография
+            <input title="Photo" type="file" accept="image/*" name="photo" id="photo" />
+            <div class="photo-drop">
+            <img src="drag-and-drop.png" alt="drag-and-drop-img" />
+            </div>
+            </label>
+            <label for="resume">Резюме
+            <textarea title="Resume" name="resume" cols="40" rows="9"></textarea>
+            </label>
+            <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+            <input type="submit" value="Save" name="save_form" disabled="disabled" />
+            </form>
+        </div>
+    </section>';
+    return $content;
 }
 
 
-
-
-function jfsm2_team_shortcode() {
+function devit2_contact_form_shortcode() {
 $args   =   array(
 'post_type'      => 'team',
 'post_status'    => 'publish',
 'posts_per_page' => 10,
 );
 $postslist = new WP_Query( $args );
+$content = '<h1 class="meet_team_head_text">Shortcode here</h1>';
     
 if ( $postslist->have_posts() ) :
 $content   .= '<div class="team-lists">
@@ -364,232 +374,96 @@ endif;
 return $content;
 }
 
-function jfsm2_team_frontpage_shortcode() {
-$args   =   array(
-'post_type'      => 'team',
-'post_status'    => 'publish',
-'posts_per_page' => 10,
-);
-$postslist = new WP_Query( $args );
-    
-if ( $postslist->have_posts() ) :
-$content   .= '<div class="team-lists">
-<div class="team-lists-head row"><h2 class="team_frontpage_heading col-6">Team</h2><p class="button-learn-more-2 col-12 col-sm-6"><a href="' . site_url() . '/teams/">Learn More</a></p></div>
-<p>Partnering with companies to create long term value for business owners, CEOs and investors</p>
-<div class="row">';    
-while ( $postslist->have_posts() ) : $postslist->the_post(); 
-$contact_info = get_post_meta(  get_the_ID(), 'jfsm2_contact_info', true );
-$url = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ), 'full' );        
-$content    .= '<div class="team_part col-12 col-sm-6 col-lg-3 text-center"><div class="items_frontpage">';
-$content    .= '<a href="#inline_'.get_the_ID().'" class="various fancybox"><div class="team_img_front" style="background-image:url(' . $url . ')"></div></a>';
-$content    .= '<div><p class="frontpage_person">' . get_the_title() . '</p>';
-$content    .= '<p class="frontpage_person_position">' . get_the_excerpt() . '</p></div>';
-$content    .= '<div class="hidden pop_up_window" id="inline_'.get_the_ID().'">
-<div class="row team_row_popup"><div class="col-md-5 col-12 photo_block"><img class="team-foto-img" src ="' . $url . '"></div>
-<div class="col-md-7 col-12 about_team_member"> 
-<h2>' . get_the_title() . '</h2>
-<p class="member_position">' . get_the_excerpt() . '</p>
-<p class="member_mail"><a href="mailto:' . $contact_info['email'] . ' "> ' . $contact_info['email'] . '</a></p>
-<p class="member_phone"> ' . $contact_info['phone'] . ' </p>
-<hr>
-<div class="member_story">' . get_the_content() . '</div></div></div></div>';
-$content    .= '</div></div>';
-endwhile;
-wp_reset_postdata();
-$content  .= '</div><script>(function($){$(document).ready(function(){$(".fancybox").fancybox();});})(jQuery)</script>';
-endif;
-return $content;
-}
 
-function jfsm2_transactions_shortcode() {
-$args   =   array(
-'post_type'             => 'transactions',
-'post_status'           => 'publish',
-'posts_per_page'        => 4,
-'ignore_sticky_posts'   => true,
-'orderby'               => 'date'
-);
-$custom_query = new WP_Query( $args );
 
-if ( $custom_query->have_posts() ) :
-$content         = '<div class="row transactions_frontpage_row">'; 
-while( $custom_query->have_posts() ) : $custom_query->the_post();
 
-$transaction_category = wp_get_post_terms( get_the_ID(), 'transactions_types', array( 'fields' => 'all' ) );
-$transaction_category_name = $transaction_category[0]->name;
-$url = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ), 'full' );
-
-$content    .=  '<div class="transactions_block col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">';
-$content    .=      '<article class="' . join( ' ', get_post_class( '', $post->ID ) ) . '">';
-$content    .=          '<div class="transaction_wrapper">';
-$content    .=              '<h5 class="transaction_category">' . $transaction_category_name . '</h5>';
-$content    .=              '<div class="post-featured-img transaction_img_wrapper">';
-$content    .=                  '<img src="' . $url  . ' ">';  
-$content    .=              '</div>';
-$content    .=              '<div class="transaction_content">' . get_the_content() . '</div>';
-$content    .=          '</div>';
-$content    .=      '</article>';      
-$content    .=  '</div>';            
-                                        
-endwhile;
-wp_reset_postdata();
-$content        .= '</div>';
-endif;
-return $content;
-}
-
-class jfsm2_Contact_Widget extends WP_Widget {
- 
-function __construct() {
- 
-parent::__construct(
-'jfsm2_contact_widget',  // Base ID
-'Contact_widget'   // Name
-);
-}
- 
-public $args = array(
-'before_widget' => '<div id="%1$s" class="widget %2$s">',
-'after_widget'  => '</div>',
-'before_title'  => '<h2 class="widgettitle">',
-'after_title'   => '</h2>',
-);
- 
-public function widget( $args, $instance ) {
- 
-echo $args['before_widget'];
- 
-if ( ! empty( $instance['title'] ) ) {
-echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
-}
- 
-echo '<div class="textwidget">';
-echo '<span class="contact-widget-string">';
-echo esc_html__( $instance['address'], 'jfsm2' );
-echo '</span>';
-echo '<span class="contact-widget-string">';
-echo esc_html__( $instance['phone'], 'jfsm2' );
-echo '</span>';
-echo '<span class="contact-widget-string">';
-echo esc_html__( $instance['email'], 'jfsm2' );
-echo '</span>';
-        
-echo '</div>';
- 
-echo $args['after_widget'];
- 
-}
- 
-public function form( $instance ) {
- 
-$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Contacts', 'jfsm2' );
-$address = ! empty( $instance['address'] ) ? $instance['address'] : '';
-$phone = ! empty( $instance['phone'] ) ? $instance['phone'] : '';
-$email = ! empty( $instance['email'] ) ? $instance['email'] : '';
-        
-?>
-<p>
-<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html__( 'Title:', 'jfsm2' ); ?></label>
-<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-</p>
-<p>
-<label for="<?php echo esc_attr( $this->get_field_id( 'Address' ) ); ?>"><?php echo esc_html__( 'Address:', 'jfsm2' ); ?></label>
-<textarea class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'address' ) ); ?>" type="text" cols="30" rows="10"><?php echo esc_attr( $address ); ?></textarea>
-</p>
-<p>
-<label for="<?php echo esc_attr( $this->get_field_id( 'phone' ) ); ?>"><?php echo esc_html__( 'Phone:', 'jfsm2' ); ?></label>
-<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'phone' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'phone' ) ); ?>" type="text" value="<?php echo esc_attr( $phone ); ?>">
-</p>
-<p>
-<label for="<?php echo esc_attr( $this->get_field_id( 'email' ) ); ?>"><?php echo esc_html__( 'Email:', 'jfsm2' ); ?></label>
-<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'email' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'email' ) ); ?>" type="text" value="<?php echo esc_attr( $email ); ?>">
-</p>
-        
-<?php
- 
-}
- 
-public function update( $new_instance, $old_instance ) {
- 
-$instance = array();
- 
-$instance['title'] = ( !empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-$instance['address'] = ( !empty( $new_instance['address'] ) ) ? $new_instance['address'] : '';
-$instance['phone'] = ( !empty( $new_instance['phone'] ) ) ? $new_instance['phone'] : '';
-$instance['email'] = ( !empty( $new_instance['email'] ) ) ? $new_instance['email'] : '';
-        
- 
-return $instance;
-}
- 
-}
-$title = '';
 class jfsm2_SocialLinks_Widget extends WP_Widget {
  
-function __construct() {
+    function __construct() {
+        parent::__construct(
+            'jfsm2_SocialLinks_widget',  // Base ID
+            'SocialLinks widget'   // Name
+        );
+    }
+    public $args = array(
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widgettitle">',
+        'after_title'   => '</h2>',
+    );
+    public function widget( $args, $instance ) {
+        $base_url_img = get_template_directory_uri();
+        echo $args['before_widget'];
+        if ( ! empty( $instance['title'] ) ) {
+            echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
+        }
+        echo '<div class="textwidget">';
+        echo '<div class="contact-widget-string">';
+        if ( ! empty( $instance['twitter'] ) ) {
+            echo '<p class="Social-link-url"><a href="' . $instance['twitter'] . '"><img src="' . $base_url_img . '/icons/png/tweeter.png" width="40" height="40" border="0" alt="Twitter"></a></p>';
+        }
+        if ( ! empty( $instance['linkedin'] ) ) {
+            echo '<p class="Social-link-url"><a href="' . $instance['linkedin'] . '"><img src="' . $base_url_img . '/icons/png/linkedin.png" width="40" height="40" border="0" alt="linkedin"></a></p>';
+        }
+        if ( ! empty( $instance['facebook'] ) ) {
+            echo '<p class="Social-link-url"><a href="' . $instance['facebook'] . '"><img src="' . $base_url_img . '/icons/png/facebook.png" width="40" height="40" border="0" alt="facebook"></a></p>';
+        }
+        if ( ! empty( $instance['instagram'] ) ) {
+            echo '<p class="Social-link-url"><a href="' . $instance['instagram'] . '"><img src="' . $base_url_img . '/icons/png/instagram.png" width="40" height="40" border="0" alt="instagram"></a></p>';
+        }
+        echo '</div>';
+        echo '</div>';
+        echo $args['after_widget'];
  
-parent::__construct(
-'jfsm2_SocialLinks_widget',  // Base ID
-'SocialLinks widget'   // Name
-);
-}
+    }
  
-public $args = array(
-'before_widget' => '<div id="%1$s" class="widget %2$s">',
-'after_widget'  => '</div>',
-'before_title'  => '<h2 class="widgettitle">',
-'after_title'   => '</h2>',
-);
+    public function form( $instance ) {
  
-public function widget( $args, $instance ) {
+        $title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'SocialLinks', 'jfsm2' );
+        $twitter = ! empty( $instance['twitter'] ) ? $instance['twitter'] : '';
+        $linkedin = ! empty( $instance['linkedin'] ) ? $instance['linkedin'] : '';
+        $facebook = ! empty( $instance['facebook'] ) ? $instance['facebook'] : '';
+        $instagram = ! empty( $instance['instagram'] ) ? $instance['instagram'] : '';?>
+        <p>
+        <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html__( 'Title:', 'jfsm2' ); ?></label>
+        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+        </p>
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'twitter' ) ); ?>"><?php echo esc_html__( 'twitter Url:', 'jfsm2' ); ?></label>
+            <textarea class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'twitter' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'twitter' ) ); ?>" type="text" ><?php echo esc_attr( $twitter ); ?></textarea>
+        </p>
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'linkedin' ) ); ?>"><?php echo esc_html__( 'Linkedin Url:', 'jfsm2' ); ?></label>
+            <textarea class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'linkedin' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'linkedin' ) ); ?>" type="text" ><?php echo esc_attr( $linkedin ); ?></textarea>
+        </p>
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'facebook' ) ); ?>"><?php echo esc_html__( 'Facebook Url:', 'jfsm2' ); ?></label>
+            <textarea class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'facebook' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'facebook' ) ); ?>" type="text" ><?php echo esc_attr( $facebook ); ?></textarea>
+        </p>
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'instagram' ) ); ?>"><?php echo esc_html__( 'Linkedin Url:', 'jfsm2' ); ?></label>
+            <textarea class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'instagram' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'instagram' ) ); ?>" type="text" ><?php echo esc_attr( $instagram ); ?></textarea>
+        </p>
+        <?php
  
-echo $args['before_widget'];
+    }
  
-if ( ! empty( $instance['title'] ) ) {
-echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
-}
+    public function update( $new_instance, $old_instance ) {
  
-echo '<div class="textwidget">';
-echo '<div class="contact-widget-string">';
-echo esc_html__( $instance['linkedin'], 'jfsm2' );
-echo '</div>';
-
-echo '</div>';
+    $instance = array();
  
-echo $args['after_widget'];
+    $instance['title'] = ( !empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+    $instance['twitter'] = ( !empty( $new_instance['twitter'] ) ) ? $new_instance['twitter'] : '';
+    $instance['linkedin'] = ( !empty( $new_instance['linkedin'] ) ) ? $new_instance['linkedin'] : '';
+    $instance['facebook'] = ( !empty( $new_instance['facebook'] ) ) ? $new_instance['facebook'] : '';
+    $instance['instagram'] = ( !empty( $new_instance['instagram'] ) ) ? $new_instance['instagram'] : '';
  
-}
+    return $instance;
+    }
  
-public function form( $instance ) {
- 
-$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'SocialLinks', 'jfsm2' );
-$linkedin = ! empty( $instance['linkedin'] ) ? $instance['linkedin'] : '';
-?>
-<p>
-<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html__( 'Title:', 'jfsm2' ); ?></label>
-<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-</p>
-<p>
-<label for="<?php echo esc_attr( $this->get_field_id( 'linkedin' ) ); ?>"><?php echo esc_html__( 'Linkedin Url:', 'jfsm2' ); ?></label>
-<textarea class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'linkedin' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'linkedin' ) ); ?>" type="text" ><?php echo esc_attr( $linkedin ); ?></textarea>
-</p>
-<?php
- 
-}
- 
-public function update( $new_instance, $old_instance ) {
- 
-$instance = array();
- 
-$instance['title'] = ( !empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-$instance['linkedin'] = ( !empty( $new_instance['linkedin'] ) ) ? $new_instance['linkedin'] : '';
- 
-return $instance;
-}
- 
-}
-function mytheme_custom_excerpt_length( $length ) {
-return 20;
+    }
+    function mytheme_custom_excerpt_length( $length ) {
+    return 20;
 }
 
 
@@ -599,7 +473,5 @@ add_action('add_meta_boxes', 'jfsm2_add_meta_box');
 add_action( 'save_post', 'jfsm2_save_meta_fields' );
 add_action( 'widgets_init', 'jfsm2_register_widgets' );
 add_action( 'wp_enqueue_scripts', 'jfsm2_enqueue_style' );
-add_shortcode( 'jfsm2_team', 'jfsm2_team_shortcode' ); 
-add_shortcode( 'jfsm2_team_frontpage', 'jfsm2_team_frontpage_shortcode' ); 
-add_shortcode( 'jfsm2_transactions', 'jfsm2_transactions_shortcode' ); 
+add_shortcode( 'devit_contact_form', 'devit_contact_form_shortcode' );  
 add_filter( 'excerpt_length', 'mytheme_custom_excerpt_length', 999 );    

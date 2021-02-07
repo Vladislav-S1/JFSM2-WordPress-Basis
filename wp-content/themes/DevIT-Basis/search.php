@@ -1,7 +1,6 @@
 get_header();
 
-if ( have_posts() ) {
-	?>
+if ( have_posts() ) { ?>
 	<h1 class="page-title">
 		<?php
 		printf(
@@ -32,8 +31,9 @@ if ( have_posts() ) {
 	} // End the loop.
 	// Previous/next page navigation.
 	jfsm2_the_posts_navigation();
-} else {
+} else {?>
 	<p class="no-search-results"><?php esc_html_e( 'Have not search results.', 'jfsm2' ); ?></p>
+	<?php
 }
 
 get_footer();

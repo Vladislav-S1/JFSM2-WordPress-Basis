@@ -13,30 +13,34 @@
     <div id="page" class="site">
         <div id="header">
 			<div id="header-container" class="container">
-				<div id="logo">
-					<?php if ( function_exists( 'the_custom_logo' ) ) {
-						the_custom_logo();
-					} ?>
-				</div>
-				<div id="nav-handle">
-					<?php
-						wp_nav_menu( array(
-						'theme_location' => 'primary'
-						) );
-					?>						
-				</div>
-				<div id="menuToggle">
-					<input type="checkbox" class="hamburger" />
-					<?php
-						wp_nav_menu( array(
-						'theme_location' => 'mobile'
-						) );
-					?>						
-				</div>
-				<div id="login">
-					<?php
-					
-					?>						
+				<div class="row">
+					<div id="logo" class="col-2">
+						<?php if ( function_exists( 'the_custom_logo' ) ) {
+							the_custom_logo();
+						} ?>
+					</div>
+					<div id="nav-handle" class="col-8">
+						<?php
+							wp_nav_menu( array(
+							'theme_location' => 'primary'
+							) );
+						?>						
+					</div>
+					<div id="login" class="col-2"><?php
+						if ( ! is_user_logged_in() ) {
+							$link = '<a id="login-button-in" href="' . esc_url( wp_login_url( '' ) ) . '">' . __( 'Authorization' ) . '</a>';
+						} else {
+							$link = '<a id="login-button-out" href="' . esc_url( wp_logout_url( '' ) ) . '">' . __( 'Log out' ) . '</a>';
+						} echo $link; ?>						
+					</div>
+					<div id="menuToggle">
+						<input type="checkbox" class="hamburger" />
+						<?php
+							wp_nav_menu( array(
+							'theme_location' => 'mobile'
+							) );
+						?>						
+					</div>
 				</div>
 			</div>
         </div><!-- #header -->
