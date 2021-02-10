@@ -2,6 +2,11 @@
 get_header(); 
 ?>
 	<div class="the-main-front-page">
+		<?php
+        global $wpdb;
+
+		
+   ?>
 		<!-- Start the Loop. -->
 		<?php if ( have_posts() ) :the_post(); ?>
 			<div id="home-page-base">

@@ -27,7 +27,7 @@ a:link, a:visited, a:active {
     text-decoration: none;
     color: #212b35;
 }
-#header, #footer{
+#header, #footer {
     background-color: #A9DFF2;
 }
 #menuToggle, nav-handle {
@@ -41,9 +41,11 @@ hr {
 }
 #nav-handle {
     text-align: left;
+    display: flex;
 }
 #nav-handle li {
     display: inline-flex;
+    white-space: nowrap;
 }
 #nav-handle ul {
     margin-bottom: 0px;
@@ -59,17 +61,22 @@ hr {
         left: 5px;
         transform: rotate(270deg);
     }
-    #nav-handle .sub-menu li:before {
-        display: flex;
-        position: absolute;
-        left: 0px;
-        width: 3px;
-        height: 0px;
-        background-color: #d92727;
-        background-color: red;
-        content: "";
-        transition: width 0.3s ease-out;
-    }
+#menuToggle .menu-item-has-children:after {
+    content: "\003C";
+    position: relative;
+    left: 5px;
+}
+#nav-handle .sub-menu li:before {
+    display: flex;
+    position: absolute;
+    left: 0px;
+    width: 3px;
+    height: 0px;
+    background-color: #d92727;
+    background-color: red;
+    content: "";
+    transition: width 0.3s ease-out;
+}
 #nav-handle .sub-menu li:hover:before,
 #nav-handle .sub-menu li:focus:before {
     height: 35px;
@@ -81,12 +88,12 @@ hr {
 #nav-handle ul li ul {
     display: none;
 }
-#nav-handle ul li:hover ul {
+#nav-handle ul li:hover ul,{
     display: block;
     position: absolute;
     padding: 15px 0px;
     top: 85%;
-    z-index: 1000;
+    z-index: 5;
     border-radius: 4px;
     filter: drop-shadow(2.736px 7.518px 10.5px rgba(51,51,51,0.1));
     background-color: #ffffff;
@@ -98,7 +105,7 @@ hr {
     letter-spacing: 0px;
     line-height: 35px;
 }
-div#login {
+#login {
     text-align: right;
 }
 #login-button-in, #login-button-out {
@@ -106,11 +113,13 @@ div#login {
     background-color: #D92727;
     border-radius: 2px;
     padding: 12px 24px;
+    white-space: nowrap;
 }
 #content {
     background-image: url(icons/png/background.png);
     background-repeat: repeat-x;
     background-position: bottom;
+    z-index: -3;
 }
 #primary {
     min-height: 700px;
@@ -118,10 +127,9 @@ div#login {
     background-repeat: repeat-x;
     background-position: bottom;
     background-position-y: calc(100% + 11px);
+    z-index: 1;
 }
 #form-wrapper {
-    width: 532px;
-    height: 924px;
     border-radius: 3px;
     filter: drop-shadow(5.601px 2.15px 14.5px rgba(51,51,51,0.14));
     background-color: #ffffff;
@@ -168,21 +176,66 @@ p.Social-link-url {
     text-align: end;
 }
 
-section.form-section-main {
+.form-section-main {
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
     padding-top: 3%;
     padding-bottom: 10%;
+    z-index: 1;
 }
 .form-section-main:before {
     content: url(icons/png/BoyWithPhone.png);
     padding-bottom: 2%;
+    position: absolute;
+    left: 3%;
 }
 
+#form-wrapper {
+    z-index: 1;
+}
 .form-section-main:after {
     content: url(icons/png/GirlWithBike.png);
+    position: absolute;
+    right: 3%;
+    z-index: 0;
 }
+#menuToggle {
+    display: none;
+}
+
+form#form {
+    margin: 30px;
+}
+
+.button-for-delete-phone {
+    color: #ffffff;
+    background-color: #D92727;
+    border-radius: 2px;
+    border: 1px solid #b7b7b7;
+    width: 25% !important;
+}
+label,
+label input {
+    width: 100%;
+}
+.phone-input-add, .phone-input-remove {
+    display: flex;
+    justify-content: space-between;
+}
+.phone-input-remove {
+    padding-top: 15px;
+}
+.phone-wrapper input {
+    width: 70%;
+}
+#add-phone-field {
+    width: 25%;
+    border-radius: 2px;
+    background-color: #f6f6f6;
+    border: 1px solid #b7b7b7;
+}
+
 
 @media (min-width: 1400px) {
     .container, .container-sm, .container-md, .container-lg, .container-xl {
@@ -190,6 +243,117 @@ section.form-section-main {
         padding: 0px;
     }
 }
-#menuToggle {
-    display: none !important;
+@media (min-width: 767px) and (max-width: 992px) {
+    #login, #logo {
+        text-align: center;
+        z-index: 22;
+    }
+
+    #nav-handle {
+        justify-content: center;
+    }
 }
+
+@media (max-width: 767px) {
+    #nav-handle {
+        display: none;
+    }
+
+    #menuToggle {
+        display: block;
+        position: relative;
+        top: 50px;
+        left: 50px;
+        z-index: 1;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+        #menuToggle input {
+            display: block;
+            width: 40px;
+            height: 32px;
+            position: absolute;
+            top: -7px;
+            left: -5px;
+            cursor: pointer;
+            opacity: 0;
+            z-index: 20;
+            -webkit-touch-callout: none;
+        }
+
+        #menuToggle span {
+            display: flex;
+            width: 29px;
+            height: 2px;
+            margin-bottom: 5px;
+            position: relative;
+            background: #ffffff;
+            border-radius: 3px;
+            z-index: 20;
+            transform-origin: 5px 0px;
+            transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
+        }
+
+            #menuToggle span:first-child {
+                transform-origin: 0% 0%;
+            }
+
+            #menuToggle span:nth-last-child(2) {
+                transform-origin: 0% 100%;
+            }
+
+        #menuToggle input:checked ~ span {
+            opacity: 1;
+            transform: rotate(45deg) translate(2px, -3px);
+            background: #ffffff;
+        }
+
+            #menuToggle input:checked ~ span:nth-last-child(3) {
+                opacity: 0;
+                transform: rotate(0deg) scale(0.2, 0.2);
+            }
+
+            #menuToggle input:checked ~ span:nth-last-child(2) {
+                transform: rotate(-45deg) translate(2px, 4px);
+            }
+
+        #menuToggle .menu-primary-container {
+            display: none;
+            position: absolute;
+            width: 50%;
+            height: 1000px;
+            padding-top: 45px;
+            line-height: 25px;
+            background: #A9DFF2;
+            transform-origin: 0% 0%;
+            transform: translate(-100%, 0);
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            z-index: 19;
+        }
+
+            #menuToggle .menu-primary-container li {
+                padding: 10px 0;
+                transition-delay: 2s;
+            }
+
+            #menuToggle .menu-primary-container .menu-item-has-children {
+                padding-bottom: 0px;
+            }
+
+                #menuToggle .menu-primary-container .menu-item-has-children ul {
+                    padding-top: 10px;
+                    display: none;
+                }
+
+        #menuToggle input:checked ~ ul {
+            transform: none;
+        }
+
+        #menuToggle input:checked ~ div {
+            display: block;
+            position: fixed;
+            left: 50%;
+        }
+}
+

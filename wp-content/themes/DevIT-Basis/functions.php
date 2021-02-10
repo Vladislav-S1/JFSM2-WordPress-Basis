@@ -61,117 +61,51 @@ function jfsm2_setup() {
 
 
 function jfsm2_post_type_init() {
-$labels = array(
-'name'                  => _x( 'Team', 'Post type general name', 'jfsm2' ),
-'singular_name'         => _x( 'Team', 'Post type singular name', 'jfsm2' ),
-'menu_name'             => _x( 'Team', 'Admin Menu text', 'jfsm2' ),
-'name_admin_bar'        => _x( 'Team', 'Add New on Toolbar', 'jfsm2' ),
-'add_new'               => __( 'Add New', 'jfsm2' ),
-'add_new_item'          => __( 'Add New', 'jfsm2' ),
-'new_item'              => __( 'New', 'jfsm2' ),
-'edit_item'             => __( 'Edit', 'jfsm2' ),
-'view_item'             => __( 'View', 'jfsm2' ),
-'all_items'             => __( 'All', 'jfsm2' ),
-'search_items'          => __( 'Search', 'jfsm2' ),
-'parent_item_colon'     => __( 'Parent Teams:', 'jfsm2' ),
-'not_found'             => __( 'Not found.', 'jfsm2' ),
-'not_found_in_trash'    => __( 'Not found in Trash.', 'jfsm2' ),
-'featured_image'        => _x( 'Team Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'jfsm2' ),
-'set_featured_image'    => _x( 'Set team image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'jfsm2' ),
-'remove_featured_image' => _x( 'Remove team image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'jfsm2' ),
-'use_featured_image'    => _x( 'Use as team image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'jfsm2' ),
-'archives'              => _x( 'Team archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'jfsm2' ),
-'insert_into_item'      => _x( 'Insert into team', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'jfsm2' ),
-'uploaded_to_this_item' => _x( 'Uploaded to this team', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'jfsm2' ),
-'filter_items_list'     => _x( 'Filter teams list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'jfsm2' ),
-'items_list_navigation' => _x( 'Teams list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'jfsm2' ),
-'items_list'            => _x( 'Teams list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'jfsm2' ),
-);
+    $labels = array(
+        'name'                  => _x( 'devit_contact_form', 'Post type general name', 'jfsm2' ),
+        'singular_name'         => _x( 'devit_contact_form', 'Post type singular name', 'jfsm2' ),
+        'menu_name'             => _x( 'devit_contact_form', 'Admin Menu text', 'jfsm2' ),
+        'name_admin_bar'        => _x( 'devit_contact_form', 'Add New on Toolbar', 'jfsm2' ),
+        'add_new'               => __( 'Add New', 'jfsm2' ),
+        'add_new_item'          => __( 'Add New', 'jfsm2' ),
+        'new_item'              => __( 'New', 'jfsm2' ),
+        'edit_item'             => __( 'Edit', 'jfsm2' ),
+        'view_item'             => __( 'View', 'jfsm2' ),
+        'all_items'             => __( 'All', 'jfsm2' ),
+        'search_items'          => __( 'Search', 'jfsm2' ),
+        'parent_item_colon'     => __( 'Parent Teams:', 'jfsm2' ),
+        'not_found'             => __( 'Not found.', 'jfsm2' ),
+        'not_found_in_trash'    => __( 'Not found in Trash.', 'jfsm2' ),
+        'featured_image'        => _x( 'Team Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'jfsm2' ),
+        'set_featured_image'    => _x( 'Set team image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'jfsm2' ),
+        'remove_featured_image' => _x( 'Remove team image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'jfsm2' ),
+        'use_featured_image'    => _x( 'Use as team image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'jfsm2' ),
+        'archives'              => _x( 'Team archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'jfsm2' ),
+        'insert_into_item'      => _x( 'Insert into team', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'jfsm2' ),
+        'uploaded_to_this_item' => _x( 'Uploaded to this team', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'jfsm2' ),
+        'filter_items_list'     => _x( 'Filter teams list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'jfsm2' ),
+        'items_list_navigation' => _x( 'Teams list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'jfsm2' ),
+        'items_list'            => _x( 'Teams list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'jfsm2' ),
+    );
  
-$args = array(
-'labels'             => $labels,
-'public'             => true,
-'publicly_queryable' => true,
-'show_ui'            => true,
-'show_in_menu'       => true,
-'query_var'          => true,
-'rewrite'            => array( 'slug' => 'team' ),
-'capability_type'    => 'post',
-'has_archive'        => true,
-'hierarchical'       => false,
-'menu_position'      => null,
-'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
-);
+    $args = array(
+        'labels'             => $labels,
+        'public'             => false,
+        'publicly_queryable' => false,
+        'show_ui'            => false,
+        'show_in_menu'       => false,
+        'query_var'          => false,
+        'rewrite'            => array( 'slug' => 'devit_contact_form' ),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'supports'           => array( 'title', 'editor', 'author', 'thumbnail' ),
+    );
  
-register_post_type( 'team', $args );
-
-$labels = array(
-'name'                  => _x( 'Transactions', 'Post type general name', 'jfsm2' ),
-'singular_name'         => _x( 'Transactions', 'Post type singular name', 'jfsm2' ),
-'menu_name'             => _x( 'Transactions', 'Admin Menu text', 'jfsm2' ),
-'name_admin_bar'        => _x( 'Transactions', 'Add New on Toolbar', 'jfsm2' ),
-'add_new'               => __( 'Add New', 'jfsm2' ),
-'add_new_item'          => __( 'Add New', 'jfsm2' ),
-'new_item'              => __( 'New', 'jfsm2' ),
-'edit_item'             => __( 'Edit', 'jfsm2' ),
-'view_item'             => __( 'View', 'jfsm2' ),
-'all_items'             => __( 'All', 'jfsm2' ),
-'search_items'          => __( 'Search', 'jfsm2' ),
-'parent_item_colon'     => __( 'Parent transactions:', 'jfsm2' ),
-'not_found'             => __( 'Not found.', 'jfsm2' ),
-'not_found_in_trash'    => __( 'Not found in Trash.', 'jfsm2' ),
-'featured_image'        => _x( 'Transactions Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'jfsm2' ),
-'set_featured_image'    => _x( 'Set transactions image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'jfsm2' ),
-'remove_featured_image' => _x( 'Remove transactions image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'jfsm2' ),
-'use_featured_image'    => _x( 'Use as transactions image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'jfsm2' ),
-'archives'              => _x( 'Transactions archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'jfsm2' ),
-'insert_into_item'      => _x( 'Insert into transactions', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'jfsm2' ),
-'uploaded_to_this_item' => _x( 'Uploaded to this transactions', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'jfsm2' ),
-'filter_items_list'     => _x( 'Filter transactions list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'jfsm2' ),
-'items_list_navigation' => _x( 'Transactions list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'jfsm2' ),
-'items_list'            => _x( 'Transactions list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'jfsm2' ),
-);
- 
-$args = array(
-'labels'             => $labels,
-'public'             => true,
-'publicly_queryable' => true,
-'show_ui'            => true,
-'show_in_menu'       => true,
-'query_var'          => true,
-'rewrite'            => array( 'slug' => 'transactions' ),
-'capability_type'    => 'post',
-'has_archive'        => true,
-'hierarchical'       => false,
-'menu_position'      => null,
-'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
-);
- 
-register_post_type( 'transactions', $args );
-$labels = array(
-'name'              => _x( 'Transactions Types', 'taxonomy general name', 'jfsm2' ),
-'singular_name'     => _x( 'Transactions Type', 'taxonomy singular name', 'jfsm2' ),
-'search_items'      => __( 'Search Transactions Type', 'jfsm2' ),
-'all_items'         => __( 'All Transactions Type', 'jfsm2' ),
-'parent_item'       => __( 'Parent Transactions Type', 'jfsm2' ),
-'parent_item_colon' => __( 'Parent Transactions Type:', 'jfsm2' ),
-'edit_item'         => __( 'Edit Transactions Type', 'jfsm2' ),
-'update_item'       => __( 'Update Transactions Type', 'jfsm2' ),
-'add_new_item'      => __( 'Add New Transactions Type', 'jfsm2' ),
-'new_item_name'     => __( 'New Transactions Type Name', 'jfsm2' ),
-'menu_name'         => __( 'Transactions Type', 'jfsm2' ),
-);
-
-$args = array(
-'hierarchical'      => false,
-'labels'            => $labels,
-'show_ui'           => true,
-'show_admin_column' => true,
-'query_var'         => false,
-'rewrite'           => array( 'slug' => 'transactions_types' ),
-);
-register_taxonomy( 'transactions_types', 'transactions', $args );
+    register_post_type( 'devit_contact_form', $args );
 }
+
 
 
 function jfsm2_add_meta_box() {
@@ -299,34 +233,33 @@ function devit_contact_form_shortcode() {
     $content = '<section class="form-section-main">
         <div id="form-wrapper">
             <form method="post" id="form" enctype="multipart/form-data">
-            <label for="name">ФИО
-            <input title="Full name" type="text" name="name" pattern="[A-Za-z]{3,32}\s[A-Za-z]{3,32}\s[A-Za-z]{3,32}" id="name" />
-            </label>
-            <label for="email">E-mail
-            <input title="Email" type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="mail" />
-            </label>
-            <label for="phone">Телефон
-            <div class="phone-wrapper">
-            <div class="phone-input-add">
-            <input title="Phone number" type="tel" name="phone_0" id="phone" />
-            <input id="add-phone-field" class="btn" type="submit" value="+" name="add_phone_field"/>
-            </div>
-            </div>
-            </label>
-            <label for="age">Возраст
-            <input title="Age" type="number" min="1" max="100" name="age" id="age" />
-            </label>
-            <label for="photo">Фотография
-            <input title="Photo" type="file" accept="image/*" name="photo" id="photo" />
-            <div class="photo-drop">
-            <img src="drag-and-drop.png" alt="drag-and-drop-img" />
-            </div>
-            </label>
-            <label for="resume">Резюме
-            <textarea title="Resume" name="resume" cols="40" rows="9"></textarea>
-            </label>
-            <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-            <input type="submit" value="Save" name="save_form" disabled="disabled" />
+                <label for="name">' . __( 'ФИО', 'jfsm2' ) . '<br/>
+                    <input title="Full name" type="text" name="name"  id="name" />
+                </label><br/>
+                <label for="email">' . __( 'Е-маил', 'jfsm2' ) . '<br/>
+                    <input title="Email" type="email" name="email"  id="mail" />
+                </label><br/>
+                <label for="phone">' . __( 'Телефон', 'jfsm2' ) . '<br/>
+                <div class="phone-wrapper">
+                    <div class="phone-input-add">
+                        <input title="Phone number" type="tel" name="phone_0" id="phone" />
+                        <input id="add-phone-field" class="btn" type="submit" value="+" name="add_phone_field"/>
+                    </div>
+                </div><br/>
+                </label><br/>
+                <label for="age">' . __( 'Возраст', 'jfsm2' ) . '<br/>
+                    <input title="Age" type="number" min="1" max="100" name="age" id="age" />
+                </label><br/>
+                <label for="photo">' . __( 'Фотография', 'jfsm2' ) . '<br/>
+                    <input title="Photo" type="file" accept="image/*" name="photo" id="photo" /><br/>
+                <div class="photo-drop">
+                <div id="preview"><img src="' . get_template_directory() . '/icons/png/imagePrev.png" /></div>
+                </div>
+                </label><br/>
+                <label for="resume">' . __( 'Резюме', 'jfsm2' ) . '<br/>
+                    <textarea title="Resume" name="resume" cols="50" rows="15"></textarea><br/>
+                </label><br/>
+                <input type="submit" value="Send" name="save_form" disabled="disabled" style="display: inline-block;" />
             </form>
         </div>
     </section>';
@@ -465,6 +398,21 @@ class jfsm2_SocialLinks_Widget extends WP_Widget {
     function mytheme_custom_excerpt_length( $length ) {
     return 20;
 }
+function jfsm2_add_admin_menu() {
+	add_menu_page( 'Contact Form', 'Contact Form', 'edit_others_posts', 'contact_form_slug', 'jfsm2_admin_page_function', get_template_directory_uri(  ) . '/icons/png/buddicons-buddypress-logo.svg', 6 );
+}
+function jfsm2_admin_page_function(){
+    require_once __DIR__ . '/classes/class-Contacts_List_Table.php';?>
+    <div class="wrap">
+	    <h1 class="wp-heading-inline"> <?php _e( 'Contact Form', 'wp-appointments-doctor' ); ?> </h1>
+	    <form action="" method="POST"><?php
+		    $doc_list = new Example_List_Table();
+		    $doc_list->prepare_items();
+		    $doc_list->display(); ?>
+	    </form>
+    </div><?php
+    echo '4324234';
+}
 
 
 add_action( 'after_setup_theme', 'jfsm2_setup' );
@@ -474,4 +422,5 @@ add_action( 'save_post', 'jfsm2_save_meta_fields' );
 add_action( 'widgets_init', 'jfsm2_register_widgets' );
 add_action( 'wp_enqueue_scripts', 'jfsm2_enqueue_style' );
 add_shortcode( 'devit_contact_form', 'devit_contact_form_shortcode' );  
+add_action( 'admin_menu', 'jfsm2_add_admin_menu', 50 );
 add_filter( 'excerpt_length', 'mytheme_custom_excerpt_length', 999 );    
