@@ -1,18 +1,19 @@
 ( function( $ ) { 
-	$( document ).ready( function() {
-        $('.menu-primary-container .menu-item-has-children a').click(function (e) {
-            e.preventDefault();
-            if ($('.menu-item-has-children .sub-menu').css('display') == 'none') {
-                $('.menu-item-has-children .sub-menu').css({ 'display': 'block' });
+    $(document).ready(function () {
+        console.log('Hi1');
+        $('#menuToggle .menu-primary-container .menu-item-has-children').click(function () {
+            console.log('Hi2');
+            if ($('#menuToggle .menu-item-has-children .sub-menu').css('display') == 'none') {
+                console.log('Hi3');
+                $('#menuToggle .menu-item-has-children .sub-menu').css({ 'display': 'block' });
             } else {
-                $('.menu-primary-container > .menu-item-has-children .sub-menu').css({ 'display': 'none' });
+                $('#menuToggle .menu-primary-container > .menu-item-has-children .sub-menu').css({ 'display': 'none' });
+                console.log('Hi4');
             }
         });
         $('#menuToggle > input').click(function () {
+            console.log('Hi5');
             $('.menu-primary-container > .menu-item-has-children .sub-menu').css({ 'display': 'none' });
-        });
-        $('.hamburger').on('click', function () {
-            $(this).parent('#menuToggle').find('.form-section-main').toggleClass('show')
         });
 	} );
 })(jQuery);

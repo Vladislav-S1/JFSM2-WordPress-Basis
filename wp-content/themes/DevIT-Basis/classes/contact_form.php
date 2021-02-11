@@ -25,7 +25,7 @@ if ( ! function_exists( 'get_contact_form_shortcode' ) ) {
                             <input title="file" type="file" accept="image/*" name="file" id="file" /><br/>
                             <div class="photo-drop">
                                 <span id="output"></span>
-                                <div id="preview"><img src="' . get_template_directory() . '/icons/png/imagePrev.png" /></div>
+                                <div id="preview"><img src=" http://devitfortestonly.getenjoyment.net/wp-content/themes/DevIT-Basis/icons/png/imagePrev.png" /></div>
                             </div>
                         </label><br/>
                         <label for="resume">' . __( 'Resume', 'jfsm2' ) . '<br/>
