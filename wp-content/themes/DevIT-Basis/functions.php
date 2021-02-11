@@ -92,8 +92,8 @@ function jfsm2_post_type_init() {
         'labels'             => $labels,
         'public'             => false,
         'publicly_queryable' => false,
-        'show_ui'            => false,
-        'show_in_menu'       => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
         'query_var'          => false,
         'rewrite'            => array( 'slug' => 'devit_contact_form' ),
         'capability_type'    => 'post',
@@ -105,88 +105,9 @@ function jfsm2_post_type_init() {
  
     register_post_type( 'devit_contact_form', $args );
 }
-
-
-
-function jfsm2_add_meta_box() {
-add_meta_box(
-'team_meta_box_1',       // $id
-'Contacts',                  // $title
-'jfsm2_show_team_meta_box',  // $callback
-'team',                 // $page
-'normal',                  // $context
-'high'                     // $priority
-);
-}
-
-
-function jfsm2_show_team_meta_box() {
-global $post;
-
-$contact_info = get_post_meta(  $post->ID, 'jfsm2_contact_info', true );
-
-// Use nonce for verification to secure data sending
-wp_nonce_field( basename( __FILE__ ), 'jfsm2_our_nonce' );
-
-?>
-
-<!-- my custom value input -->
-<p>
-<label for="email"><?php echo esc_html__( 'Email', 'jfsm2' ); ?>:</label>
-<input class="widefat" id="email" name="jfsm2_email" type="text" value="<?php echo isset( $contact_info['email'] ) ? esc_attr( $contact_info['email'] ) : ''; ?>">
-</p>
-<p>
-<label for="phone"><?php echo esc_html__( 'Phone:', 'jfsm2' ); ?></label>
-<input class="widefit" id="phone" name="jfsm2_phone" type="text" value="<?php echo isset( $contact_info['phone'] ) ? esc_attr( $contact_info['phone'] ) : ''; ?>">
-</p>
-
-<?php
-}
-
-
-
-function jfsm2_save_meta_fields( $post_id ) {
-
-// verify nonce
-if (!isset($_POST['jfsm2_our_nonce']) || !wp_verify_nonce($_POST['jfsm2_our_nonce'], basename(__FILE__))){
-return 'nonce not verified';
-}
-
-// check autosave
-if ( wp_is_post_autosave( $post_id ) ){
-return 'autosave';
-}
-
-//check post revision
-if ( wp_is_post_revision( $post_id ) ){
-return 'revision';  
-}
-$header_block = '';
-if( ! empty( $_POST['jfsm2_header_block'] ) ){
-$header_block = esc_html( trim( $_POST['jfsm2_header_block'] ) );
-update_post_meta( $post_id, 'jfsm2_header_block', $header_block );
-}
-
-$contact_info = array( 'email' => '', 'phone' => '' );
-if( ! empty( $_POST['jfsm2_email'] ) || ! empty( $_POST['jfsm2_phone'] ) ){
-if( ! empty( $_POST['jfsm2_email'] ) ) {
-$contact_info['email'] = esc_html( trim( $_POST['jfsm2_email'] ) );
-}
-if( ! empty( $_POST['jfsm2_phone'] ) ){
-$contact_info['phone'] = esc_html( trim( $_POST['jfsm2_phone'] ) );
-}
-update_post_meta( $post_id, 'jfsm2_contact_info', $contact_info );
-}  
-
-if( ! empty( $_POST['jfsm2_email'] ) || ! empty( $_POST['jfsm2_phone'] ) ){
-if( ! empty( $_POST['jfsm2_email'] ) ) {
-$contact_info['email'] = esc_html( trim( $_POST['jfsm2_email'] ) );
-}
-if( ! empty( $_POST['jfsm2_phone'] ) ){
-$contact_info['phone'] = esc_html( trim( $_POST['jfsm2_phone'] ) );
-}
-update_post_meta( $post_id, 'jfsm2_contact_info', $contact_info );
-}  
+ 
+function load_jfsm2_textdomain(){
+	load_theme_textdomain( 'jfsm2', get_template_directory() . '/languages' );
 }
 
 function jfsm2_register_widgets() {
@@ -230,88 +151,13 @@ function jfsm2_enqueue_style() {
 }
 
 function devit_contact_form_shortcode() {
-    $content = '<section class="form-section-main">
-        <div id="form-wrapper">
-            <form method="post" id="form" enctype="multipart/form-data">
-                <label for="name">' . __( 'ФИО', 'jfsm2' ) . '<br/>
-                    <input title="Full name" type="text" name="name"  id="name" />
-                </label><br/>
-                <label for="email">' . __( 'Е-маил', 'jfsm2' ) . '<br/>
-                    <input title="Email" type="email" name="email"  id="mail" />
-                </label><br/>
-                <label for="phone">' . __( 'Телефон', 'jfsm2' ) . '<br/>
-                <div class="phone-wrapper">
-                    <div class="phone-input-add">
-                        <input title="Phone number" type="tel" name="phone_0" id="phone" />
-                        <input id="add-phone-field" class="btn" type="submit" value="+" name="add_phone_field"/>
-                    </div>
-                </div><br/>
-                </label><br/>
-                <label for="age">' . __( 'Возраст', 'jfsm2' ) . '<br/>
-                    <input title="Age" type="number" min="1" max="100" name="age" id="age" />
-                </label><br/>
-                <label for="photo">' . __( 'Фотография', 'jfsm2' ) . '<br/>
-                    <input title="Photo" type="file" accept="image/*" name="photo" id="photo" /><br/>
-                <div class="photo-drop">
-                <div id="preview"><img src="' . get_template_directory() . '/icons/png/imagePrev.png" /></div>
-                </div>
-                </label><br/>
-                <label for="resume">' . __( 'Резюме', 'jfsm2' ) . '<br/>
-                    <textarea title="Resume" name="resume" cols="50" rows="15"></textarea><br/>
-                </label><br/>
-                <input type="submit" value="Send" name="save_form" disabled="disabled" style="display: inline-block;" />
-            </form>
-        </div>
-    </section>';
+    require_once( dirname(__FILE__) .  '/classes/contact_form.php');
+    $content = get_contact_form_shortcode();
     return $content;
 }
 
-
-function devit2_contact_form_shortcode() {
-$args   =   array(
-'post_type'      => 'team',
-'post_status'    => 'publish',
-'posts_per_page' => 10,
-);
-$postslist = new WP_Query( $args );
-$content = '<h1 class="meet_team_head_text">Shortcode here</h1>';
-    
-if ( $postslist->have_posts() ) :
-$content   .= '<div class="team-lists">
-<h1 class="meet_team_head_text">Meet Our Team</h1>
-<div class="row team_row">';    
-while ( $postslist->have_posts() ) : $postslist->the_post(); 
-$contact_info = get_post_meta(  get_the_ID(), 'jfsm2_contact_info', true );
-$url = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ), 'full' );        
-$content    .= '<div class="team_part col-12 col-md-6 col-lg-3 text-center"><div class="items">';
-$content    .= '<a href="#inline_'.get_the_ID().'" class="various fancybox"><div class="team_img" style="background-image:url(' . $url . ')">';
-$content    .= '</div></a>';
-$content    .= '<div><p class="person">' . get_the_title() . '</p>';
-$content    .= '<p class="person_position">' . get_the_excerpt() . '</p></div>';
-         
-
-
-$content    .= '<div class="hidden pop_up_window" id="inline_'.get_the_ID().'">
-<div class="row team_row_popup"><div class="col-md-5 col-12 photo_block"><img class="team-foto-img" src ="' . $url . '"></div>
-<div class="col-md-7 col-12 about_team_member"> 
-<h2>' . get_the_title() . '</h2>
-<p class="member_position">' . get_the_excerpt() . '</p>
-<p class="member_mail"><a href="mailto:' . $contact_info['email'] . ' "> ' . $contact_info['email'] . '</a></p>
-<p class="member_phone"> ' . $contact_info['phone'] . ' </p>
-<hr>
-<div class="member_story">' . get_the_content() . '</div></div></div></div>';
-$content    .= '</div></div>';
-endwhile;
-wp_reset_postdata();
-endif;
-return $content;
-}
-
-
-
-
 class jfsm2_SocialLinks_Widget extends WP_Widget {
- 
+  
     function __construct() {
         parent::__construct(
             'jfsm2_SocialLinks_widget',  // Base ID
@@ -382,21 +228,16 @@ class jfsm2_SocialLinks_Widget extends WP_Widget {
     }
  
     public function update( $new_instance, $old_instance ) {
+        $instance = array();
  
-    $instance = array();
+        $instance['title'] = ( !empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+        $instance['twitter'] = ( !empty( $new_instance['twitter'] ) ) ? $new_instance['twitter'] : '';
+        $instance['linkedin'] = ( !empty( $new_instance['linkedin'] ) ) ? $new_instance['linkedin'] : '';
+        $instance['facebook'] = ( !empty( $new_instance['facebook'] ) ) ? $new_instance['facebook'] : '';
+        $instance['instagram'] = ( !empty( $new_instance['instagram'] ) ) ? $new_instance['instagram'] : '';
  
-    $instance['title'] = ( !empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-    $instance['twitter'] = ( !empty( $new_instance['twitter'] ) ) ? $new_instance['twitter'] : '';
-    $instance['linkedin'] = ( !empty( $new_instance['linkedin'] ) ) ? $new_instance['linkedin'] : '';
-    $instance['facebook'] = ( !empty( $new_instance['facebook'] ) ) ? $new_instance['facebook'] : '';
-    $instance['instagram'] = ( !empty( $new_instance['instagram'] ) ) ? $new_instance['instagram'] : '';
- 
-    return $instance;
+        return $instance;
     }
- 
-    }
-    function mytheme_custom_excerpt_length( $length ) {
-    return 20;
 }
 function jfsm2_add_admin_menu() {
 	add_menu_page( 'Contact Form', 'Contact Form', 'edit_others_posts', 'contact_form_slug', 'jfsm2_admin_page_function', get_template_directory_uri(  ) . '/icons/png/buddicons-buddypress-logo.svg', 6 );
@@ -417,10 +258,8 @@ function jfsm2_admin_page_function(){
 
 add_action( 'after_setup_theme', 'jfsm2_setup' );
 add_action( 'init', 'jfsm2_post_type_init' );
-add_action('add_meta_boxes', 'jfsm2_add_meta_box');
-add_action( 'save_post', 'jfsm2_save_meta_fields' );
+add_action('after_setup_theme', 'load_jfsm2_textdomain');
 add_action( 'widgets_init', 'jfsm2_register_widgets' );
 add_action( 'wp_enqueue_scripts', 'jfsm2_enqueue_style' );
 add_shortcode( 'devit_contact_form', 'devit_contact_form_shortcode' );  
-add_action( 'admin_menu', 'jfsm2_add_admin_menu', 50 );
-add_filter( 'excerpt_length', 'mytheme_custom_excerpt_length', 999 );    
+add_action( 'admin_menu', 'jfsm2_add_admin_menu', 50 );  

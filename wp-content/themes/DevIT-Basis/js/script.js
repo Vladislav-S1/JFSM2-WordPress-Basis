@@ -26,7 +26,7 @@
             email: false,
             age: false,
             text: false,
-            photo: false,
+            file: false,
             tel: [false]
         };
         const cssError = { 'border-color': '#F73208' };
@@ -64,7 +64,7 @@
                     }
                 }
             }
-            if ($('#name').val() !== 'undefined' && $('#age').val() !== 'undefined' && $('#mail').val() !== 'undefined' && $('textarea').val() !== 'undefined' && $('#photo').val() !== 'undefined' && $('#phone').val() !== 'undefined') {
+            if ($('#name').val() !== 'undefined' && $('#age').val() !== 'undefined' && $('#mail').val() !== 'undefined' && $('textarea').val() !== 'undefined' && $('#file').val() !== 'undefined' && $('#phone').val() !== 'undefined') {
                 return true;
             } else {
                 return false;
@@ -210,16 +210,20 @@
             if ($(this).val() !== '') {
                 $('.photo-drop').css(cssNoError);
                 if (this.files && this.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        photoTag.attr('src', e.target.result);
-                    };
-                    reader.readAsDataURL(this.files[0]);
-                    allFieldsCorrect.photo = true;
+                    var preview = document.querySelector('img');
+                    var file = document.querySelector('input[type=file]').files[0];
+                    var reader = new FileReader();
+                    reader.onloadend = function () {
+                        preview.src = reader.result;
+                    }
+                    reader.readAsDataURL(file);
+                    allFieldsCorrect.file = true;
+                    console.log('111');
                 }
             }
             if (isAllValid(allFieldsCorrect)) {
                 $('input[name=save_form]').prop('disabled', false);
+                $('input[name=save_form]').show();
             } else {
                 $('input[name=save_form]').prop('disabled', true);
                 $('input[name=save_form]').hide();
@@ -245,12 +249,12 @@
                         if (response) {
                              alert( 'All was saved' );
                             $('#form input[type=tel], #form input[type=text], #form input[type=email], #form input[type=number], #form textarea').val('');
-                            $('.photo-drop img').attr();
+                            $('.photo-drop img').attr('src', '');
                             allFieldsCorrect.name = false;
                             allFieldsCorrect.email = false;
                             allFieldsCorrect.age = false;
                             allFieldsCorrect.text = false;
-                            allFieldsCorrect.photo = false;
+                            allFieldsCorrect.file = false;
                             for (let i = 0; i < allFieldsCorrect.tel.length; i++) {
                                 allFieldsCorrect.tel[i] = false;
                             }
