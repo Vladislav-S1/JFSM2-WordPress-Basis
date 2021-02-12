@@ -83,5 +83,16 @@ file_put_contents(__DIR__ . '/log.txt', $log . PHP_EOL, FILE_APPEND);
     } catch ( Exception $th ) {
         echo $th->getMessage();
     }
+    require 'vendor/autoload.php';
+    use Mailgun\Mailgun;
+    $mgClient = new Mailgun('6ca86671a225cd51183c2b161a9c6549-77751bfc-0e82f13a');
+    $domain = "https://app.mailgun.com/app/sending/domains/sandbox0aa8e8b42fed40d28d31d25741a0cca9.mailgun.org";
+    # Make the call to the client.
+    $result = $mgClient->sendMessage($domain, array(
+	    'from'	=> 'Excited User <mailgun@sadchikovvladislav@gmail.com>',
+	    'to'	=> 'Baz <YOU@sadchikovvladislav@gmail.com>',
+	    'subject' => 'Hello',
+	    'text'	=> 'Testing some Mailgun awesomness!'
+    ));
     echo $result;
 } ?>
