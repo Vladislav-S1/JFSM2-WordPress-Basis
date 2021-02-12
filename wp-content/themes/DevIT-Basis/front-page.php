@@ -1,12 +1,11 @@
 <?php 
 get_header(); 
+
 ?>
 	<div class="the-main-front-page">
 		<?php
         global $wpdb;
-		
-update_option( 'my_option', 'whattt' );
-include_once( get_stylesheet_directory() .'/classes/mail.php');
+
 		if($wpdb->last_error !== '') :
 
         $str   = htmlspecialchars( $wpdb->last_result, ENT_QUOTES );

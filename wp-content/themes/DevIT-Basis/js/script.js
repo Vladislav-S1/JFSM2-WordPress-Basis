@@ -1,18 +1,20 @@
 ( function( $ ) { 
     $(document).ready(function () {
-        console.log('Hi1');
         $('#menuToggle .menu-primary-container .menu-item-has-children').click(function () {
-            console.log('Hi2');
             if ($('#menuToggle .menu-item-has-children .sub-menu').css('display') == 'none') {
-                console.log('Hi3');
                 $('#menuToggle .menu-item-has-children .sub-menu').css({ 'display': 'block' });
             } else {
                 $('#menuToggle .menu-primary-container > .menu-item-has-children .sub-menu').css({ 'display': 'none' });
-                console.log('Hi4');
+            }
+        });
+        $('.hamburger').on('click', function () {
+            if ($('#menuToggle .menu-primary-container').css('display') == 'none') {
+                $('#menuToggle .menu-primary-container').css({ 'display': 'block' });
+            } else {
+                $('#menuToggle .menu-primary-container').css({ 'display': 'none' });
             }
         });
         $('#menuToggle > input').click(function () {
-            console.log('Hi5');
             $('.menu-primary-container > .menu-item-has-children .sub-menu').css({ 'display': 'none' });
         });
 	} );
@@ -118,11 +120,9 @@
             if (isAllValid(allFieldsCorrect)) {
                 $('input[name=save_form]').prop('disabled', false);
                 $('input[name=save_form]').show();
-                console.log('1111');
             } else {
                 $('input[name=save_form]').prop('disabled', true);
                 $('input[name=save_form]').hide();
-                console.log('22222');
             }
         });
         $('#name').on('focus', function (e) {
@@ -211,7 +211,7 @@
             if ($(this).val() !== '') {
                 $('.photo-drop').css(cssNoError);
                 if (this.files && this.files[0]) {
-                    var preview = document.querySelector('img');
+                    var preview = document.querySelector('#preview img');
                     var file = document.querySelector('input[type=file]').files[0];
                     var reader = new FileReader();
                     reader.onloadend = function () {
@@ -219,7 +219,7 @@
                     }
                     reader.readAsDataURL(file);
                     allFieldsCorrect.file = true;
-                    console.log('111');
+                    //const fileimg = FileReader.readAsDataURL();
                 }
             }
             if (isAllValid(allFieldsCorrect)) {
@@ -235,9 +235,13 @@
             e.preventDefault();
             $('input[name=save_form]').prop('disabled', true);
             $('input[name=save_form]').hide();
+            $('.thank-you-message').css({ 'display': 'block' });
+            $('#form-wrapper').css({ 'display': 'none' });
             if (isAllValid(allFieldsCorrect)) {
-                const form = $('form');
+                const form = $('#form');
                 let formData = new FormData(form[0]);
+                let fileimg = document.querySelector('input[type=file]').files[0];
+                formData.append("imageFile", fileimg );
                 formData.append('save_form', 'save');
                 $.ajax({
                     type: 'POST',
@@ -248,7 +252,6 @@
                     contentType: false,
                     success: function (response) {
                         if (response) {
-                             alert( 'All was saved' );
                             $('#form input[type=tel], #form input[type=text], #form input[type=email], #form input[type=number], #form textarea').val('');
                             $('.photo-drop img').attr('src', '');
                             allFieldsCorrect.name = false;

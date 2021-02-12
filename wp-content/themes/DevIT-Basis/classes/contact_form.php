@@ -2,6 +2,7 @@
 if ( ! function_exists( 'get_contact_form_shortcode' ) ) {
 	function get_contact_form_shortcode() { 
         $content = '<section class="form-section-main">
+            <h1 class="thank-you-message">Thank you for submit</h1>
                 <div id="form-wrapper">
                     <form method="post" id="form" enctype="multipart/form-data">
                         <label for="name">' . __( 'Full name', 'jfsm2' ) . '<br/>
@@ -22,7 +23,7 @@ if ( ! function_exists( 'get_contact_form_shortcode' ) ) {
                             <input title="Age" type="number" min="1" max="100" name="age" id="age" />
                         </label><br/>
                         <label for="photo">' . __( 'Photo', 'jfsm2' ) . '<br/>
-                            <input title="file" type="file" accept="image/*" name="file" id="file" /><br/>
+                            <input title="file" type="file" accept="image/* application/pdf" name="file" id="file" /><br/>
                             <div class="photo-drop">
                                 <span id="output"></span>
                                 <div id="preview"><img src=" http://devitfortestonly.getenjoyment.net/wp-content/themes/DevIT-Basis/icons/png/imagePrev.png" /></div>

@@ -1,16 +1,11 @@
 <?php
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php' );
 global $wpdb;
-$array = $_POST;
- 
-$log = date('Y-m-d H:i:s') . ' ' . print_r($array, true);
+update_option( 'my_option', 'what12' );
+if ( isset($_POST['save_form'] ) ) {
+update_option( 'my_option', 'what1222' );
+$log = date('Y-m-d H:i:s') . $_POST;
 file_put_contents(__DIR__ . '/log.txt', $log . PHP_EOL, FILE_APPEND);
 
-if ( isset($_POST['save_form'] ) ) {
-$array = (array)$_POST;
- 
-$log = date('Y-m-d H:i:s') . ' ' . print_r($array, true);
-file_put_contents(__DIR__ . '/log.txt', $log . PHP_EOL, FILE_APPEND);
     try {
         //upload photo
         $counter = 0;
@@ -33,11 +28,11 @@ file_put_contents(__DIR__ . '/log.txt', $log . PHP_EOL, FILE_APPEND);
             throw new Exception( 'Incorrect full name' );
         } else if ( ! empty( $phone ) ) {
             $error_flag = false;
-            foreach ( unserialize( $phone ) as $key => $number ) {
-                if ( ! preg_match( '/^[0-9]{10,10}$/', $number ) ) {
-                    $error_flag = true;
-                }
-            }
+            //foreach ( unserialize( $phone ) as $key => number ) {
+                //if ( ! preg_match( '/^[0-9]{10,12}$/', number ) ) {
+                 //   $error_flag = true;
+                //}
+            //}
             if ( $error_flag ) {
                 throw new Exception( 'Incorrect phone number' );
             }
@@ -48,16 +43,7 @@ file_put_contents(__DIR__ . '/log.txt', $log . PHP_EOL, FILE_APPEND);
         } else if ( empty( $age ) ) {
             throw new Exception( 'Incorrect age' );
         }
-        $phones = '';
-       foreach ( unserialize( $phone ) as $key => $number ) {
-                $phones .= '
-                Phone ' . $key . ': ' . $number; 
-            }
-        $post_content = 'Name: ' . $name . '
-                        Age: ' . $age . '
-                        ' . $phones . '
-                        Email: ' . $email . '
-                        Resume: ' . $resume ;
+        $post_content = 'sjkfhksjdhkjsdfd';
         $post_data = array(
 	        'post_title'    => $name,
 	        'post_content'  => $post_content,
@@ -66,18 +52,7 @@ file_put_contents(__DIR__ . '/log.txt', $log . PHP_EOL, FILE_APPEND);
 	        'post_author'   => 1,
 	        'post_category' => array( 8,39 )
         );
-        $added_post = wp_insert_post( $post_data );
-        $filename = '/path/to/uploads/2013/03/filname.jpg';
-        $filetype = wp_check_filetype( basename( $filename ), null );
-        $wp_upload_dir = wp_upload_dir();
-        $attachment = array(
-	        'guid'           => $wp_upload_dir['url'] . '/' . basename( $filename ), 
-	        'post_mime_type' => $filetype['type'],
-	        'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $filename ) ),
-	        'post_content'   => '',
-	        'post_status'    => 'private'
-        );
-        wp_insert_attachment( $attachment, $filename, $added_post );
+        wp_insert_post( $post_data );
         unset( $_POST );
     
     } catch ( Exception $th ) {

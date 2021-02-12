@@ -1,3 +1,4 @@
+<?php 
 get_header();
 
 if ( have_posts() ) { ?>
@@ -37,3 +38,4 @@ if ( have_posts() ) { ?>
 }
 
 get_footer();
+?>
